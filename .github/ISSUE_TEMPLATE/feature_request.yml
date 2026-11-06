@@ -1,0 +1,26 @@
+name: Feature request
+description: Propose a testable improvement or research question.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem to solve
+      description: Describe the user-visible issue without including personal routes or identifiers.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: State observable behavior and how it can be tested.
+    validations:
+      required: true
+  - type: textarea
+    id: compatibility
+    attributes:
+      label: Compatibility evidence
+      description: Include only non-sensitive vehicle/firmware facts needed for the request. Do not post VINs, serial numbers, MACs, routes, raw logs or private firmware.
+    validations:
+      required: false

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "profiles": [
+    {
+      "id": "a5-f5-mhi2q-aug22-p5092-mu1329",
+      "identity": {
+        "platform": "MHI2Q",
+        "vehicle_model": "Audi A5 Sportback F5",
+        "head_unit_part_number": "8W5 035 036 C",
+        "firmware_train": "MHI2Q_ER_AUG22_P5092",
+        "mu": "MU1329"
+      },
+      "receiver_profile": {
+        "id": null,
+        "gal_sha256": null,
+        "receiver_sha256": null
+      },
+      "status": "owner_reported_unverified",
+      "install_eligible": false,
+      "reason": "Exact vehicle firmware receiver pair and layouts have not been validated on this fork."
+    }
+  ]
+}
