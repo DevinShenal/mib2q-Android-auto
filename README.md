@@ -11,6 +11,18 @@ on the cluster (CarPlay AltScreen and the Android Auto cluster display).
 > Use it only on a unit you own, back up every file you change, and accept that
 > you do it at your own risk.
 
+## Audi VC Ultimate development track
+
+This public fork is the development home for the Audi VC Ultimate workstream. The branch is experimental; it is not a car-ready release.
+
+- **Owner target:** Audi A5 Sportback F5, 2017 / MY2018, MHI2Q_ER_AUG22_P5092 / MU1329. The owner's working v1.3.1 CarPlay installation remains the baseline; it does not validate this fork or Android Auto.
+- **Compatibility:** This fork has not been validated on the owner's exact vehicle. Use the evidence table in [docs/audi-vc-ultimate/BASELINE.md](docs/audi-vc-ultimate/BASELINE.md).
+- **Layouts:** Full and Classic only for this target. Do not enable or assume Sport.
+- **Zoom:** Genuine Google Maps or Waze geographic zoom has not been demonstrated. Cropping, scaling, MMI zoom or Audi-map scale changes are not zoom solutions.
+- **Safety:** Do not install a development branch on a vehicle. Changes to a real head unit require explicit owner approval, exact firmware verification, backups and a reviewed recovery path.
+
+Project docs: [architecture](docs/audi-vc-ultimate/ARCHITECTURE.md), [roadmap](docs/audi-vc-ultimate/ROADMAP.md), [test matrix](docs/audi-vc-ultimate/TEST_MATRIX.md), [diagnostics](docs/audi-vc-ultimate/DIAGNOSTICS.md), [recovery](docs/audi-vc-ultimate/RECOVERY.md), and [zoom research](docs/audi-vc-ultimate/REAL_ZOOM_RESEARCH.md).
+
 ## Contents
 
 - [Features](#features)
