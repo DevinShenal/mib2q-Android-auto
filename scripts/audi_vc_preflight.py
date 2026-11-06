@@ -75,29 +75,39 @@ def identity_tuple(value: dict) -> tuple:
 
 def inspect_target(report: dict, registry: dict) -> list[str]:
     blockers = []
-    identity = report.get("identity", {})
+    identity = report.get("identity")
     keys = ("platform", "vehicle_model", "head_unit_part_number", "firmware_train", "mu")
-    if any(not isinstance(identity.get(key), str) or not identity[key].strip() for key in keys):
+    if not isinstance(identity, dict) or any(
+        not isinstance(identity.get(key), str) or not identity[key].strip() for key in keys
+    ):
         blockers.append("target identity is incomplete (platform/model/part/firmware/MU are required)")
         return blockers
 
     matches = [p for p in registry.get("profiles", [])
-               if identity_tuple(p.get("identity", {})) == identity_tuple(identity)]
+               if isinstance(p, dict) and isinstance(p.get("identity"), dict)
+               and identity_tuple(p["identity"]) == identity_tuple(identity)]
     if len(matches) != 1:
         blockers.append("no unique exact firmware profile exists for this target")
     else:
         profile = matches[0]
         if profile.get("status") != "validated" or profile.get("install_eligible") is not True:
             blockers.append("exact target profile is not validated for installation")
-        receiver = report.get("receiver_profile", {})
-        expected = profile.get("receiver_profile", {})
-        for key in ("id", "gal_sha256", "receiver_sha256"):
-            actual_value = receiver.get(key)
-            expected_value = expected.get(key)
-            if not isinstance(actual_value, str) or not SHA256_RE.fullmatch(actual_value) if key.endswith("sha256") else not actual_value:
-                blockers.append(f"receiver profile field is missing or invalid: {key}")
-            elif expected_value is None or actual_value != expected_value:
-                blockers.append(f"receiver profile does not exactly match the validated profile: {key}")
+        receiver = report.get("receiver_profile")
+        expected = profile.get("receiver_profile")
+        if not isinstance(receiver, dict) or not isinstance(expected, dict):
+            blockers.append("receiver profile evidence is missing or malformed")
+        else:
+            for key in ("id", "gal_sha256", "receiver_sha256"):
+                actual_value = receiver.get(key)
+                expected_value = expected.get(key)
+                if key.endswith("sha256"):
+                    valid = isinstance(actual_value, str) and SHA256_RE.fullmatch(actual_value)
+                else:
+                    valid = isinstance(actual_value, str) and bool(actual_value.strip())
+                if not valid:
+                    blockers.append(f"receiver profile field is missing or invalid: {key}")
+                elif expected_value is None or actual_value != expected_value:
+                    blockers.append(f"receiver profile does not exactly match the validated profile: {key}")
 
     if report.get("evidence") != "read_only_capture":
         blockers.append("target details are not from a read-only capture")

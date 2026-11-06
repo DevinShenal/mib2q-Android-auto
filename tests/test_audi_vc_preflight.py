@@ -44,6 +44,13 @@ class PreflightTests(unittest.TestCase):
         self.assertEqual(code, 2)
         self.assertIn("no unique exact firmware profile", output)
 
+    def test_malformed_receiver_report_is_blocked_without_crashing(self):
+        target = json.loads(json.dumps(self.target))
+        target["receiver_profile"] = None
+        code, output = preflight.audit(target, self.registry, self.contract, self.package, self.manifest)
+        self.assertEqual(code, 2)
+        self.assertIn("receiver profile evidence is missing or malformed", output)
+
     def test_hash_mismatch_is_blocked(self):
         manifest = json.loads(json.dumps(self.manifest))
         manifest["artifacts"][0]["sha256"] = "0" * 64
