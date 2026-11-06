@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "required_assets": [
+    {"source":"libcarplay_hook.so","destination":"/mnt/app/root/hooks/libcarplay_hook.so","mode":"0755","required":true},
+    {"source":"maneuver_render","destination":"/mnt/app/root/hooks/maneuver_render","mode":"0755","required":true},
+    {"source":"flag_atlas.rgba","destination":"/mnt/app/root/hooks/flag_atlas.rgba","mode":"0644","required":true},
+    {"source":"carplay_startup.sh","destination":"/mnt/app/root/hooks/carplay_startup.sh","mode":"0755","required":true},
+    {"source":"carplay_monitor.sh","destination":"/mnt/app/root/hooks/carplay_monitor.sh","mode":"0755","required":true},
+    {"source":"carplay_processes.sh","destination":"/mnt/app/root/hooks/carplay_processes.sh","mode":"0755","required":true},
+    {"source":"carplay_cleanup.sh","destination":"/mnt/app/root/hooks/carplay_cleanup.sh","mode":"0755","required":true},
+    {"source":"carplay_hook.jar","destination":"/mnt/app/eso/hmi/lsd/jars/carplay_hook.jar","mode":"0644","required":true}
+  ],
+  "optional_assets": [
+    {"source":"libaltscreen111_mhi2q.so","destination":"/mnt/app/root/hooks/libaltscreen111_mhi2q.so","mode":"0755","required":false},
+    {"source":"altscreen_render","destination":"/mnt/app/root/hooks/altscreen_render","mode":"0755","required":false},
+    {"source":"libaa_cluster_hook.so","destination":"/mnt/app/root/hooks/libaa_cluster_hook.so","mode":"0755","required":false},
+    {"source":"aa_startup.sh","destination":"/mnt/app/root/hooks/aa_startup.sh","mode":"0755","required":false},
+    {"source":"nav_boost","destination":"/mnt/app/root/hooks/nav_boost","mode":"0755","required":false}
+  ],
+  "optional_groups": [
+    {"id":"altscreen","assets":["libaltscreen111_mhi2q.so","altscreen_render"]},
+    {"id":"android_auto","assets":["libaa_cluster_hook.so","aa_startup.sh"]}
+  ],
+  "config_changes": [
+    {"path":"/mnt/system/etc/eso/production/smartphone_integrator.json","operation":"replace children.carplay; replace children.gal only when the complete AA asset group is staged","backup_suffix":".carplay-stock"},
+    {"path":"/mnt/system/etc/eso/production/dio_manager.json","operation":"register configured iAP2 message IDs and PASCD NMEA bit","backup_suffix":".carplay-stock"}
+  ],
+  "conditional_removals": [
+    {"path":"/mnt/app/eso/hmi/lsd/jars/NavActiveIgnore.jar","reason":"current upstream installer may remove this M.I.B. conflict jar without creating a stock backup"},
+    {"path":"/mnt/app/eso/hmi/lsd/jars/navignore_audi.jar","reason":"current upstream installer may remove this conflict jar without creating a stock backup"},
+    {"path":"/mnt/app/eso/hmi/lsd/jars/navignore_vw.jar","reason":"current upstream installer may remove this conflict jar without creating a stock backup"}
+  ]
+}

@@ -235,3 +235,6 @@ echo "phone RGI flag stays in ClusterService (no persisted rgActive forge)"
 
 printf '%-32s ' diagnostic_scrubber_test
 python3 -I tests/test_diagnostic_scrubber.py
+
+printf '%-32s ' audi_vc_preflight_test
+python3 -I tests/test_audi_vc_preflight.py

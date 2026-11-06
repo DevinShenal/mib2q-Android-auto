@@ -1,0 +1,23 @@
+{
+  "evidence": "owner_reported",
+  "identity": {
+    "platform": "MHI2Q",
+    "vehicle_model": "Audi A5 Sportback F5",
+    "head_unit_part_number": "8W5 035 036 C",
+    "firmware_train": "MHI2Q_ER_AUG22_P5092",
+    "mu": "MU1329"
+  },
+  "receiver_profile": {
+    "id": null,
+    "gal_sha256": null,
+    "receiver_sha256": null
+  },
+  "active_mod": {
+    "id": "mib2q-carplay",
+    "version": "v1.3.1",
+    "verified": false,
+    "sha256": null
+  },
+  "observed_layouts": ["Full", "Classic"],
+  "paths": {}
+}
